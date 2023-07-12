@@ -26,6 +26,7 @@ public class View extends JFrame {
         JLabel label1 = new JLabel("请选择淡旺季");
         label1.setBounds(220, 10, 150, 50);
         label1.setFont(new Font("MS Song", Font.BOLD, 20));
+        label1.setVisible(true);
         add(label1);
     }
 
@@ -85,6 +86,11 @@ public class View extends JFrame {
                 model.setPeakSeason(true);
             }
         });
+        button1.setVisible(true);
+        button2.setVisible(true);
+        button3.setVisible(true);
+        radioButton1.setVisible(true);
+        radioButton2.setVisible(true);
         add(button1);
         add(button2);
         add(button3);
@@ -117,9 +123,11 @@ public class View extends JFrame {
             jLabel2s.remove(i);
             for (int j = 0; j < jLabels.size(); j++) {
                 jLabels.get(j).setBounds(20, 58 + (j + 1) * 30, 550, 50);
+                jLabels.get(j).setVisible(true);
             }
             for (int j = 0; j < jLabel2s.size(); j++) {
                 jLabel2s.get(j).setBounds(460, 70 + (j + 1) * 30, 100, 30);
+                jLabel2s.get(j).setVisible(true);
             }
             this.repaint();
         });
