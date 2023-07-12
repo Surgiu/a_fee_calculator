@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Objects;
 
 /*
 一个成人的价格是1799，一个儿童不要床位的价格是1500，如果儿童需要床位则价格变为2099,
@@ -19,8 +18,7 @@ import java.util.Objects;
 所以你不能写在一个代码里面，你要单独写出来，才能不跟前面的代码冲突。
  */
 public class Model {
-    private ArrayList<Person> people = new ArrayList<>();
-    private int childNum;
+    private final ArrayList<Person> people = new ArrayList<>();
     private boolean isPeakSeason;
     private boolean childExists = false;
     private int singleRoomNum = 0;
@@ -32,30 +30,11 @@ public class Model {
         if (age < 18) {
             childExists = true;
             people.add(new Child(age, name, liveWith));
-            childNum++;
-
         } else if (age > 65) {
             people.add(new Old(age, name));
         } else {
             people.add(new Person(age, name));
         }
-    }
-
-    public Person deletePerson(Person target) {
-        String name = target.getName();
-        Person deleted = null;
-        for (Person person : people) {
-            if (Objects.equals(person.getName(), name)) {
-                if (person instanceof Child) {
-                    childNum--;
-                }
-                deleted = new Person(person.getAge(), person.getName());
-                people.remove(person);
-                break;
-            }
-        }
-        childExists = childNum > 0;
-        return deleted;
     }
 
     private int roomPrice(int number) {
@@ -92,9 +71,6 @@ public class Model {
         return people;
     }
 
-    public void setPeople(ArrayList<Person> people) {
-        this.people = people;
-    }
 
     public int getSingleRoomNum() {
         return singleRoomNum;
@@ -104,9 +80,6 @@ public class Model {
         this.singleRoomNum = singleRoomNum;
     }
 
-    public boolean isPeakSeason() {
-        return isPeakSeason;
-    }
 
     public void setPeakSeason(boolean peakSeason) {
         isPeakSeason = peakSeason;
