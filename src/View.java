@@ -20,6 +20,7 @@ public class View extends JFrame {
         this.model = model;
         addLabels();
         addButtons();
+        this.repaint();
     }
 
     public void addLabels() {
