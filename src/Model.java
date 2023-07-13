@@ -84,5 +84,6 @@ public class Model {
     public void setPeakSeason(boolean peakSeason) {
         isPeakSeason = peakSeason;
     }
+
 }
 

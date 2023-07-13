@@ -27,7 +27,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return "年龄：" + age + "  , 姓名：" + name;
+        return "姓名：" + name + "  , 年龄：" + age;
     }
 }
 
@@ -63,7 +63,7 @@ class Child extends Person {
     @Override
     public String toString() {
         String live = switch (liveWith) {
-            case 1 -> "   不需要床位";
+            case 1 -> "   不加床位";
             case 0 -> "   需要床位";
             default -> "   单间房";
         };

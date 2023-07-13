@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class View extends JFrame {
     private final Model model;
     private int seasonSelected = -1;
+    JLabel label1;
     private final ArrayList<JLabel> jLabels = new ArrayList<>();
     private final ArrayList<JButton> jLabel2s = new ArrayList<>();
 
@@ -24,7 +25,7 @@ public class View extends JFrame {
     }
 
     public void addLabels() {
-        JLabel label1 = new JLabel("请选择淡旺季");
+        label1 = new JLabel("请选择淡旺季");
         label1.setBounds(220, 10, 150, 50);
         label1.setFont(new Font("MS Song", Font.BOLD, 20));
         label1.setVisible(true);
@@ -78,12 +79,16 @@ public class View extends JFrame {
         radioButton1.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 seasonSelected = 0;
+                label1.setText("当前为淡季");
+                this.repaint();
                 model.setPeakSeason(false);
             }
         });
         radioButton2.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 seasonSelected = 1;
+                label1.setText("当前为旺季");
+                this.repaint();
                 model.setPeakSeason(true);
             }
         });
@@ -125,6 +130,7 @@ public class View extends JFrame {
             for (int j = 0; j < jLabels.size(); j++) {
                 jLabels.get(j).setBounds(20, 58 + (j + 1) * 30, 550, 50);
                 jLabels.get(j).setVisible(true);
+                jLabels.get(j).setText("第" + (j + 1) + "位旅客   " + model.getPeople().get(j).toString());
             }
             for (int j = 0; j < jLabel2s.size(); j++) {
                 jLabel2s.get(j).setBounds(460, 70 + (j + 1) * 30, 100, 30);
