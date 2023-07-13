@@ -17,7 +17,7 @@ public class AddingFrame extends JFrame {
 
     public AddingFrame(View view) {
         this.setTitle("添加旅客");
-        this.setBounds(720, 410, 320, 285);
+        this.setBounds(720, 410, 300, 245);
         this.setLocationRelativeTo(null);
         this.setLayout(new FlowLayout());
         this.setVisible(true);

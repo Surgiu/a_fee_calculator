@@ -82,7 +82,7 @@ public class View extends JFrame {
             jLabel2s.clear();
             this.repaint();
         });
-        button3.addActionListener(e -> JOptionPane.showMessageDialog(null, "当前总费用为:" + model.calculatePrice() + "元"));
+        button3.addActionListener(e -> JOptionPane.showMessageDialog(null, "当前总费用为:" + model.calculatePrice() + " 元"));
         radioButton1.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 seasonSelected = 0;
@@ -141,7 +141,7 @@ public class View extends JFrame {
         jLabel.setText("第" + (index + 1) + "位旅客   " + p.toString());
         jLabel2.setText("移除此人");
         jLabel.setBounds(20, 58 + model.getPeople().size() * 30, 550, 50);
-        jLabel2.setBounds(460, 70 + model.getPeople().size() * 30, 100, 30);
+        jLabel2.setBounds(480, 70 + model.getPeople().size() * 30, 100, 30);
         jLabel.setForeground(Color.WHITE);
         jLabel.setFont(new Font("MS Song", Font.BOLD, 20));
         jLabel2.setForeground(new Color(37, 37, 37));
@@ -162,7 +162,7 @@ public class View extends JFrame {
                 jLabels.get(j).setText("第" + (j + 1) + "位旅客   " + model.getPeople().get(j).toString());
             }
             for (int j = 0; j < jLabel2s.size(); j++) {
-                jLabel2s.get(j).setBounds(460, 70 + (j + 1) * 30, 100, 30);
+                jLabel2s.get(j).setBounds(480, 70 + (j + 1) * 30, 100, 30);
                 jLabel2s.get(j).setVisible(true);
             }
             this.repaint();
