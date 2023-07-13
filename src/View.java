@@ -14,8 +14,8 @@ public class View extends JFrame {
         this.setTitle("开房小助手，老手都在用");
         this.setSize(600, 800);
         this.setLocationRelativeTo(null);
-        this.setBackground(Color.GRAY);
         this.setVisible(true);
+        this.getContentPane().setBackground(new Color(28, 77, 77));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
         this.model = model;
@@ -26,7 +26,7 @@ public class View extends JFrame {
 
     public void addLabels() {
         label1 = new JLabel("请选择淡旺季");
-        label1.setBounds(220, 10, 150, 50);
+        label1.setBounds(240, 10, 150, 50);
         label1.setFont(new Font("MS Song", Font.BOLD, 20));
         label1.setVisible(true);
         add(label1);
@@ -36,34 +36,41 @@ public class View extends JFrame {
         JButton button1 = new JButton("点我添加入住成员");
         JButton button2 = new JButton("清空所有成员");
         JButton button3 = new JButton("点我计算总费用");
+        JButton button4 = new JButton("查看收费标准");
         JRadioButton radioButton1 = new JRadioButton("淡季模式");
         JRadioButton radioButton2 = new JRadioButton("旺季模式");
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(radioButton1);
         buttonGroup.add(radioButton2);
-        button1.setBounds(170, 500, 270, 50);
-        button2.setBounds(170, 600, 270, 50);
-        button3.setBounds(170, 700, 270, 50);
-        radioButton1.setBounds(110, 47, 180, 50);
-        radioButton2.setBounds(420, 47, 180, 50);
+        button1.setBounds(172, 500, 270, 50);
+        button2.setBounds(172, 600, 270, 50);
+        button3.setBounds(172, 700, 270, 50);
+        button4.setBounds(500, 12, 90, 25);
+        radioButton1.setBounds(100, 47, 120, 50);
+        radioButton2.setBounds(400, 47, 120, 50);
         radioButton1.setFont(new Font("MS Song", Font.BOLD, 20));
         radioButton2.setFont(new Font("MS Song", Font.BOLD, 20));
-        button1.setBackground(Color.gray);
+        radioButton1.setBackground(new Color(28, 77, 77));
+        radioButton2.setBackground(new Color(28, 77, 77));
+        button1.setBackground(new Color(104, 222, 86));
         button2.setBackground(Color.gray);
         button3.setBackground(Color.ORANGE);
-        button1.setFont(new Font("MS Song", Font.PLAIN, 25));
+        button4.setBackground(Color.LIGHT_GRAY);
+        button1.setFont(new Font("MS Song", Font.BOLD, 25));
         button2.setFont(new Font("MS Song", Font.PLAIN, 25));
         button3.setFont(new Font("MS Song", Font.BOLD, 30));
-
+        button4.setFont(new Font("MS Song", Font.PLAIN, 9));
         button1.addActionListener(e -> {
             if (seasonSelected == -1) {
-                JOptionPane.showMessageDialog(null, "请先选择淡旺季");
+                JOptionPane.showMessageDialog(null, "请选择淡旺季");
                 return;
             }
             AddingFrame addingFrame = new AddingFrame(View.this);
             addingFrame.setVisible(true);
         });
         button2.addActionListener(e -> {
+            int t = JOptionPane.showConfirmDialog(null, "确定要清空所有成员吗？", "提示", JOptionPane.YES_NO_OPTION);
+            if (t == JOptionPane.NO_OPTION) return;
             model.getPeople().clear();
             for (JLabel jLabel : jLabels) {
                 this.remove(jLabel);
@@ -79,15 +86,34 @@ public class View extends JFrame {
         radioButton1.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 seasonSelected = 0;
-                label1.setText("当前为淡季");
+                radioButton1.setForeground(Color.WHITE);
+                radioButton2.setForeground(Color.gray);
                 this.repaint();
                 model.setPeakSeason(false);
             }
         });
+        button4.addActionListener(e -> JOptionPane.showMessageDialog(this, """
+                                        
+                                            收费标准
+                                        
+                一个成人的价格是1799，一个儿童不要床位的价格是1500，如果儿童需要床位则价格变为2099,
+                如果需要单间房则需要补淡季1400，旺季1600的单间房差价
+                除此之外65岁以上老人在成人基础上要加300元老人费用
+                然后上面就是基础套餐，两个人的套餐，
+                然后下面会新增超过两个人的要求，和在旺季情况下增加的费用               \s
+                旺季情况下每个人都需要增加500元的旺季涨价费用                              \s
+                现在有个超比例费用概念：
+                因为优惠针对的是24到65岁的人，所以如果一个符合年龄段的人加上一个不符合年龄段的人我们称为不超比例，
+                也就是1:1（不超:超），我们不收取超比例费用，
+                如果超过这个比例，比如1:2（不超：超）我们便按超过一个人比例的费用多收取300元，
+                同理1:3便多收取600元，而2:1（不超：超）不收取超比例费用，可以理解为一个符合年龄段的人自动可以
+                同化一个不符合年龄段的人，不符合年龄段的人额外要多收300元
+                """));
         radioButton2.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 seasonSelected = 1;
-                label1.setText("当前为旺季");
+                radioButton2.setForeground(Color.WHITE);
+                radioButton1.setForeground(Color.gray);
                 this.repaint();
                 model.setPeakSeason(true);
             }
@@ -95,11 +121,13 @@ public class View extends JFrame {
         button1.setVisible(true);
         button2.setVisible(true);
         button3.setVisible(true);
+        button4.setVisible(true);
         radioButton1.setVisible(true);
         radioButton2.setVisible(true);
         add(button1);
         add(button2);
         add(button3);
+        add(button4);
         add(radioButton1);
         add(radioButton2);
     }
@@ -114,9 +142,10 @@ public class View extends JFrame {
         jLabel2.setText("移除此人");
         jLabel.setBounds(20, 58 + model.getPeople().size() * 30, 550, 50);
         jLabel2.setBounds(460, 70 + model.getPeople().size() * 30, 100, 30);
-        jLabel.setForeground(Color.MAGENTA);
+        jLabel.setForeground(Color.WHITE);
         jLabel.setFont(new Font("MS Song", Font.BOLD, 20));
-        jLabel2.setForeground(Color.RED);
+        jLabel2.setForeground(new Color(37, 37, 37));
+        jLabel2.setBackground(new Color(234, 93, 247));
         jLabel2.setFont(new Font("MS Song", Font.BOLD, 15));
         jLabels.add(jLabel);
         jLabel2s.add(jLabel2);
