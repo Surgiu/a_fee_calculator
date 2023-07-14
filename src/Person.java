@@ -69,6 +69,10 @@ class Child extends Person {
         };
         return super.toString() + live;
     }
+
+    public int getLiveWith() {
+        return liveWith;
+    }
 }
 
 class Old extends Person {

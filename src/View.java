@@ -72,6 +72,7 @@ public class View extends JFrame {
             int t = JOptionPane.showConfirmDialog(null, "确定要清空所有成员吗？", "提示", JOptionPane.YES_NO_OPTION);
             if (t == JOptionPane.NO_OPTION) return;
             model.getPeople().clear();
+            model.setSingleRoomNum(0);
             for (JLabel jLabel : jLabels) {
                 this.remove(jLabel);
             }
@@ -151,6 +152,12 @@ public class View extends JFrame {
         jLabel2s.add(jLabel2);
         jLabel2.addActionListener(e -> {
             int i = jLabel2s.indexOf(jLabel2);
+            Person person = model.getPeople().get(i);
+            if (person.getAge() < 18) {
+                if (((Child) person).getLiveWith() == 2) {
+                    model.setSingleRoomNum(model.getSingleRoomNum() - 1);
+                }
+            }
             model.getPeople().remove(i);
             this.remove(jLabels.get(i));
             this.remove(jLabel2s.get(i));
