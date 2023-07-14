@@ -68,15 +68,19 @@ public class AddingFrame extends JFrame {
             this.repaint();
         });
         Close.addActionListener(e -> {
+            MusicTools.click();
             if (this.age.getText().equals("") || this.age.getText().equals("")) {
+                MusicTools.error();
                 JOptionPane.showMessageDialog(null, "姓名或年龄为空", "提示", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (Integer.parseInt(this.age.getText()) < 0) {
+                MusicTools.error();
                 JOptionPane.showMessageDialog(null, "年龄不能为负数", "错误", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (Integer.parseInt(this.age.getText()) < 18 && liveWith == -1) {
+                MusicTools.error();
                 JOptionPane.showMessageDialog(null, "请为小孩选择入住方式", "提示", JOptionPane.ERROR_MESSAGE);
                 return;
             } else {
@@ -89,6 +93,7 @@ public class AddingFrame extends JFrame {
                 AddingFrame.this.room = 0;
             }
             view.label1.setText("");
+            MusicTools.addSuccess();
             AddingFrame.this.dispose();
         });
     }

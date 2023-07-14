@@ -11,7 +11,7 @@ public class View extends JFrame {
     private final ArrayList<JButton> jLabel2s = new ArrayList<>();
 
     public View(Model model) {
-        this.setTitle("开房小助手，老手都在用");
+        this.setTitle("出行难，找小旅");
         this.setSize(600, 800);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -46,7 +46,7 @@ public class View extends JFrame {
         button1.setBounds(172, 500, 270, 50);
         button2.setBounds(172, 600, 270, 50);
         button3.setBounds(172, 700, 270, 50);
-        button4.setBounds(500, 12, 90, 25);
+        button4.setBounds(470, 8, 130, 35);
         radioButton1.setBounds(100, 47, 120, 50);
         radioButton2.setBounds(400, 47, 120, 50);
         radioButton1.setFont(new Font("MS Song", Font.BOLD, 20));
@@ -60,18 +60,29 @@ public class View extends JFrame {
         button1.setFont(new Font("MS Song", Font.BOLD, 25));
         button2.setFont(new Font("MS Song", Font.PLAIN, 25));
         button3.setFont(new Font("MS Song", Font.BOLD, 30));
-        button4.setFont(new Font("MS Song", Font.PLAIN, 9));
+        button4.setFont(new Font("MS Song", Font.PLAIN, 12));
         button1.addActionListener(e -> {
             if (seasonSelected == -1) {
+                MusicTools.error();
                 JOptionPane.showMessageDialog(null, "请选择淡旺季");
                 return;
             }
+            MusicTools.click();
             AddingFrame addingFrame = new AddingFrame(View.this);
             addingFrame.setVisible(true);
         });
         button2.addActionListener(e -> {
+            MusicTools.error();
+            if(model.getPeople().isEmpty()){
+                JOptionPane.showMessageDialog(null, "当前没有成员哦");
+                return;
+            }
             int t = JOptionPane.showConfirmDialog(null, "确定要清空所有成员吗？", "提示", JOptionPane.YES_NO_OPTION);
-            if (t == JOptionPane.NO_OPTION) return;
+            if (t == JOptionPane.NO_OPTION) {
+                MusicTools.click();
+                return;
+            }
+            MusicTools.deleteSuccess();
             model.getPeople().clear();
             model.setSingleRoomNum(0);
             for (JLabel jLabel : jLabels) {
@@ -85,6 +96,7 @@ public class View extends JFrame {
             this.repaint();
         });
         button3.addActionListener(e -> {
+            MusicTools.click();
             int r = JOptionPane.showConfirmDialog(null, "当前总费用为: " + model.calculatePrice() + " 元。\n是否查看账目明细？", "费用统计", JOptionPane.YES_NO_OPTION);
             if (r == JOptionPane.YES_OPTION) {
                 JOptionPane.showMessageDialog(null, model.getDetail());
@@ -92,6 +104,7 @@ public class View extends JFrame {
         });
         radioButton1.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
+                MusicTools.click();
                 seasonSelected = 0;
                 radioButton1.setForeground(Color.WHITE);
                 radioButton2.setForeground(Color.gray);
@@ -101,25 +114,30 @@ public class View extends JFrame {
                 model.setPeakSeason(false);
             }
         });
-        button4.addActionListener(e -> JOptionPane.showMessageDialog(this, """
-                                        
-                                            收费标准
-                                        
-                    一个成人的价格是1799，一个儿童不要床位的价格是1500，如果儿童需要床位则价格变为2099,
-                如果需要单间房则需要补淡季1400，旺季1600的单间房差价
-                除此之外65岁以上老人在成人基础上要加300元老人费用
-                然后上面就是基础套餐，两个人的套餐，
-                然后下面会新增超过两个人的要求，和在旺季情况下增加的费用               \s
-                旺季情况下每个人都需要增加500元的旺季涨价费用                              \s
-                    现在有个超比例费用概念：
-                因为优惠针对的是24到65岁的人，所以如果一个符合年龄段的人加上一个不符合年龄段的人我们称为不超比例，
-                也就是1:1（不超:超），我们不收取超比例费用，
-                如果超过这个比例，比如1:2（不超：超）我们便按超过一个人比例的费用多收取300元，
-                同理1:3便多收取600元，而2:1（不超：超）不收取超比例费用，可以理解为一个符合年龄段的人自动可以
-                同化一个不符合年龄段的人，不符合年龄段的人额外要多收300元
-                """));
+        button4.addActionListener(e -> {
+            MusicTools.click();
+            JOptionPane.showMessageDialog(this, """
+                                            
+                                                收费标准
+                                            
+                        一个成人的价格是1799，一个儿童不要床位的价格是1500，如果儿童需要床位则价格变为2099,
+                    如果需要单间房则需要补淡季1400，旺季1600的单间房差价
+                    除此之外65岁以上老人在成人基础上要加300元老人费用
+                    然后上面就是基础套餐，两个人的套餐，
+                    然后下面会新增超过两个人的要求，和在旺季情况下增加的费用               \s
+                    旺季情况下每个人都需要增加500元的旺季涨价费用                              \s
+                        现在有个超比例费用概念：
+                    因为优惠针对的是24到65岁的人，所以如果一个符合年龄段的人加上一个不符合年龄段的人我们称为不超比例，
+                    也就是1:1（不超:超），我们不收取超比例费用，
+                    如果超过这个比例，比如1:2（不超：超）我们便按超过一个人比例的费用多收取300元，
+                    同理1:3便多收取600元，而2:1（不超：超）不收取超比例费用，可以理解为一个符合年龄段的人自动可以
+                    同化一个不符合年龄段的人，不符合年龄段的人额外要多收300元
+                    """);
+            MusicTools.click();
+        });
         radioButton2.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
+                MusicTools.click();
                 seasonSelected = 1;
                 radioButton2.setForeground(Color.WHITE);
                 radioButton1.setForeground(Color.gray);
@@ -160,6 +178,7 @@ public class View extends JFrame {
         jLabels.add(jLabel);
         jLabel2s.add(jLabel2);
         jLabel2.addActionListener(e -> {
+            MusicTools.deleteSuccess();
             int i = jLabel2s.indexOf(jLabel2);
             Person person = model.getPeople().get(i);
             if (person.getAge() < 18) {
