@@ -19,4 +19,4 @@ The Chinese version of the charging rule is shown in the following lines:
     个不符合年龄段的人，不符合年龄段的人额外要多收300元，但是由于之前有每个年龄段还有额外加的钱，
     所以你不能写在一个代码里面，你要单独写出来，才能不跟前面的代码冲突。
 
-I haven't uploaded the .exe file to the repository for the purpose of privacy preservation. But you can find the.jar file [here](https://github.com/Surgiu/a_fee_calculator/blob/master/resource/zzx.jar).
+I haven't uploaded the .exe file to the repository for the purpose of privacy preservation. But you can find the.jar file [here](https://github.com/Surgiu/a_fee_calculator/blob/master/resourse/zzx.jar).
