@@ -26,7 +26,7 @@ public class View extends JFrame {
 
     public void addLabels() {
         label1 = new JLabel("请选择淡旺季");
-        label1.setBounds(240, 10, 150, 50);
+        label1.setBounds(240, 10, 250, 50);
         label1.setFont(new Font("MS Song", Font.BOLD, 20));
         label1.setVisible(true);
         add(label1);
@@ -83,12 +83,19 @@ public class View extends JFrame {
             jLabel2s.clear();
             this.repaint();
         });
-        button3.addActionListener(e -> JOptionPane.showMessageDialog(null, "当前总费用为:" + model.calculatePrice() + " 元"));
+        button3.addActionListener(e -> {
+            int r = JOptionPane.showConfirmDialog(null, "当前总费用为: " + model.calculatePrice() + " 元。\n是否查看账目明细？", "费用统计", JOptionPane.YES_NO_OPTION);
+            if (r == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog(null, model.getDetail());
+            }
+        });
         radioButton1.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 seasonSelected = 0;
                 radioButton1.setForeground(Color.WHITE);
                 radioButton2.setForeground(Color.gray);
+                label1.setText("");
+                add(label1);
                 this.repaint();
                 model.setPeakSeason(false);
             }
@@ -97,13 +104,13 @@ public class View extends JFrame {
                                         
                                             收费标准
                                         
-                一个成人的价格是1799，一个儿童不要床位的价格是1500，如果儿童需要床位则价格变为2099,
+                    一个成人的价格是1799，一个儿童不要床位的价格是1500，如果儿童需要床位则价格变为2099,
                 如果需要单间房则需要补淡季1400，旺季1600的单间房差价
                 除此之外65岁以上老人在成人基础上要加300元老人费用
                 然后上面就是基础套餐，两个人的套餐，
                 然后下面会新增超过两个人的要求，和在旺季情况下增加的费用               \s
                 旺季情况下每个人都需要增加500元的旺季涨价费用                              \s
-                现在有个超比例费用概念：
+                    现在有个超比例费用概念：
                 因为优惠针对的是24到65岁的人，所以如果一个符合年龄段的人加上一个不符合年龄段的人我们称为不超比例，
                 也就是1:1（不超:超），我们不收取超比例费用，
                 如果超过这个比例，比如1:2（不超：超）我们便按超过一个人比例的费用多收取300元，
@@ -115,6 +122,7 @@ public class View extends JFrame {
                 seasonSelected = 1;
                 radioButton2.setForeground(Color.WHITE);
                 radioButton1.setForeground(Color.gray);
+                label1.setText("");
                 this.repaint();
                 model.setPeakSeason(true);
             }

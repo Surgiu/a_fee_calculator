@@ -88,7 +88,7 @@ public class AddingFrame extends JFrame {
                 this.age.setText("");
                 AddingFrame.this.room = 0;
             }
-            view.addLabels();
+            view.label1.setText("");
             AddingFrame.this.dispose();
         });
     }
