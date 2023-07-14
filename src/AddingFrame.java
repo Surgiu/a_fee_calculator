@@ -26,7 +26,7 @@ public class AddingFrame extends JFrame {
 
         label1 = new JLabel("请输入姓名:");
         name = new JTextField("", 16);
-        label2 = new JLabel("请输入年龄:");
+        label2 = new JLabel("请输入整数年龄:");
         age = new JTextField("", 16);
         label3 = new JLabel("若该旅客未满18岁请选择以下入住方式:");
         box = new JComboBox<>();

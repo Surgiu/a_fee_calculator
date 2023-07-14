@@ -28,6 +28,7 @@ public class View extends JFrame {
         label1 = new JLabel("请选择淡旺季");
         label1.setBounds(240, 10, 250, 50);
         label1.setFont(new Font("MS Song", Font.BOLD, 20));
+        label1.setForeground(Color.RED);
         label1.setVisible(true);
         add(label1);
     }
