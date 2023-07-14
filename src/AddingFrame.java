@@ -17,7 +17,7 @@ public class AddingFrame extends JFrame {
 
     public AddingFrame(View view) {
         this.setTitle("添加旅客");
-        this.setBounds(720, 410, 300, 245);
+        this.setBounds(720, 410, 260, 276);
         this.setLocationRelativeTo(null);
         this.setLayout(new FlowLayout());
         this.setVisible(true);
@@ -25,9 +25,9 @@ public class AddingFrame extends JFrame {
         this.view = view;
 
         label1 = new JLabel("请输入姓名:");
-        name = new JTextField("", 13);
+        name = new JTextField("", 16);
         label2 = new JLabel("请输入年龄:");
-        age = new JTextField("", 7);
+        age = new JTextField("", 16);
         label3 = new JLabel("若该旅客未满18岁请选择以下入住方式:");
         box = new JComboBox<>();
         box.addItem("请选择小孩入住方式(如无小孩请忽略)");
